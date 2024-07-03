@@ -1,5 +1,6 @@
 import tkinter
 from tkinter import messagebox
+from PIL import Image, ImageTk
 
 filename = 'history.txt'
 def load_history():
@@ -47,35 +48,56 @@ def clear_history():
         save_history(history)
         view_history()
 
+
+def clear_all():
+
+    pamountentry.delete(0,tkinter.END)
+
+    ratelabelentry.delete(0,tkinter.END)
+
+    timelabelentry.delete(0,tkinter.END)
+
+    yearlabelentry.delete(0,tkinter.END)
+
+
 history=load_history()
 window=tkinter.Tk()
-window.geometry("400x250")
 window.title('Compound Interest Calculator')
-
+image_path = r'C:\Users\asus_\OneDrive\Desktop\calc.png'
+image = Image.open(image_path)
+image = image.resize((100, 100))
+photo = ImageTk.PhotoImage(image)
+image_label = tkinter.Label(window, image=photo)
+image_label.grid(row=0, column=0, columnspan=2, pady=10)
+photo = ImageTk.PhotoImage(image)
+image_label = tkinter.Label(window, image=photo)
+image_label.grid(row=0, column=0, columnspan=10, pady=10)
 pamountlabel=tkinter.Label(window,text='Pricipal Amount:')
-pamountlabel.grid(row=0,column=0)
+pamountlabel.grid(row=1,column=0)
 pamountentry=tkinter.Entry(window)
-pamountentry.grid(row=1,column=0)
+pamountentry.grid(row=2,column=0)
 ratelabel=tkinter.Label(window,text='Rate(%):')
-ratelabel.grid(row=2,column=0)
+ratelabel.grid(row=3,column=0)
 ratelabelentry=tkinter.Entry(window)
-ratelabelentry.grid(row=3,column=0)
+ratelabelentry.grid(row=4,column=0)
 timelabel=tkinter.Label(window,text='Times Compounded Per Year:')
-timelabel.grid(row=4,column=0)
+timelabel.grid(row=5,column=0)
 timelabelentry=tkinter.Entry(window)
-timelabelentry.grid(row=5,column=0)
+timelabelentry.grid(row=6,column=0)
 yearlabel=tkinter.Label(window,text='Year:')
-yearlabel.grid(row=6,column=0)
+yearlabel.grid(row=7,column=0)
 yearlabelentry=tkinter.Entry(window)
-yearlabelentry.grid(row=7,column=0)
+yearlabelentry.grid(row=8,column=0)
 calcbtn=tkinter.Button(window,text='Calculate',command=calculate_and_save)
-calcbtn.grid(row=8,column=0)
+calcbtn.grid(row=9,column=0)
+clrbtn=tkinter.Button(window,text='Clear',command=clear_all)
+clrbtn.grid(row=10,column=0)
 result_label = tkinter.Label(window, text="")
-result_label.grid(row=9,column=0)
-tkinter.Label(window, text="Calculation History:").grid(row=10, column=0, padx=5, pady=5)
+result_label.grid(row=11,column=0)
+tkinter.Label(window, text="Calculation History:").grid(row=12, column=0, padx=5, pady=5)
 history_listbox = tkinter.Listbox(window, width=50, height=10)
-history_listbox.grid(row=11, column=0, padx=5, pady=5)
-clearbtn = tkinter.Button(window, text='Clear History', command=clear_history)
-clearbtn.grid(row=12, column=0, columnspan=2, pady=10)
+history_listbox.grid(row=13, column=0, padx=5, pady=5)
+clearbtn = tkinter.Button(window, text='Clear History',bg="blue", fg="white", font=("Arial", 14, "bold"),command=clear_history)
+clearbtn.grid(row=14, column=0, columnspan=2, pady=10)
 view_history()
 window.mainloop()
